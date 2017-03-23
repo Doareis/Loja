@@ -1,11 +1,6 @@
 package br.com.loja.test;
 
-import java.net.URI;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -25,15 +20,11 @@ public class TestaAdicaoCarrinho extends BaseServerTest{
 		carrinho.setCidade("São Paulo");
 		carrinho.setId(2L);
 		
-		URI uri = URI.create("http://localhost:8080");
-		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target(uri);
-		
 		Entity<String> entity = Entity.entity(carrinho.toJson(), MediaType.APPLICATION_JSON);
 		Response resposta = target.path("/carrinhos").request().post(entity);
 		
 		// verifica o status da resposta
-		Assert.assertEquals(201, resposta.getStatus());
+		Assert.assertEquals(Response.Status.CREATED.getStatusCode(), resposta.getStatus());
 
 		String location = resposta.getHeaderString("Location");
 		String carrinhoInserido = client.target(location).request().get(String.class);

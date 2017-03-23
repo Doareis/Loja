@@ -49,4 +49,14 @@ public class Produto {
 		this.quantidade = quantidade;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Produto){
+			Produto p = (Produto) obj;
+			if(this.getId() == p.getId()){
+				return true;
+			}
+		}
+		return false;
+	}
 }
