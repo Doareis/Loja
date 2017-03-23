@@ -71,7 +71,7 @@ public class Carrinho implements Serializable{
 		return produtos;
 	}
 
-	public String toXML() {
+	public String toJson() {
 		Gson gson = new Gson();
 		return gson.toJson(this);
 	}
@@ -80,5 +80,5 @@ public class Carrinho implements Serializable{
 		Gson gson = new Gson();
 		return gson.fromJson(carrinho, Carrinho.class);
 	}
-
+	
 }
