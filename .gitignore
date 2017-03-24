@@ -1,4 +1,6 @@
-/loja/
+/loja/.settings/
+/loja/.classpath
+/loja/.project
 .metadata/
 *.gen
 .recommenders/
