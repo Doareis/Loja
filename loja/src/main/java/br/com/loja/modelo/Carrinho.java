@@ -44,7 +44,7 @@ public class Carrinho implements Serializable{
 	}
 	
 	public long getId() {
-		return id;
+		return this.id;
 	}
 	
 	public void remove(long id) {

@@ -5,6 +5,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.junit.After;
 import org.junit.Before;
 
@@ -22,6 +24,12 @@ public class BaseServerTest {
 		Servidor servidor = new Servidor();
 		System.out.println("Starting server");
 		httpServer = servidor.inicia();
+		
+		// debug 
+		ClientConfig config = new ClientConfig();
+		config.register(new LoggingFilter());
+		client = ClientBuilder.newClient(config);
+		target = client.target(URI_LOCATION);
 		
 		client = ClientBuilder.newClient();
 		target = client.target(URI_LOCATION);
