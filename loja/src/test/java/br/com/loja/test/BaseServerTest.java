@@ -26,10 +26,10 @@ public class BaseServerTest {
 		httpServer = servidor.inicia();
 		
 		// debug 
-		ClientConfig config = new ClientConfig();
+		/*ClientConfig config = new ClientConfig();
 		config.register(new LoggingFilter());
 		client = ClientBuilder.newClient(config);
-		target = client.target(URI_LOCATION);
+		target = client.target(URI_LOCATION);*/
 		
 		client = ClientBuilder.newClient();
 		target = client.target(URI_LOCATION);
