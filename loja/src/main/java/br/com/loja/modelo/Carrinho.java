@@ -4,8 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.Gson;
+import com.thoughtworks.xstream.XStream;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Carrinho implements Serializable{
 
 	private static final long serialVersionUID = 6719631551295787414L;
@@ -72,13 +79,15 @@ public class Carrinho implements Serializable{
 	}
 
 	public String toJson() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+		return new Gson().toJson(this);
 	}
 
 	public static Carrinho fromString(String carrinho) {
-		Gson gson = new Gson();
-		return gson.fromJson(carrinho, Carrinho.class);
+		return new Gson().fromJson(carrinho, Carrinho.class);
+	}
+
+	public String toXml() {
+		return new XStream().toXML(this);
 	}
 	
 }

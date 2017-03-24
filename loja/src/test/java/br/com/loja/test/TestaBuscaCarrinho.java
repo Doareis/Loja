@@ -10,9 +10,7 @@ public class TestaBuscaCarrinho extends BaseServerTest {
 	@Test
 	public void testaServico(){
 		
-		Carrinho carrinho = Carrinho.fromString(
-				target.path("/carrinhos/1").request().get(String.class));
-		
+		Carrinho carrinho = target.path("/carrinhos/1").request().get(Carrinho.class);
 		Assert.assertTrue(carrinho.getRua().equals("Rua Vergueiro 3185, 8 andar"));
 	}
 }

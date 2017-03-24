@@ -15,8 +15,6 @@ import javax.ws.rs.core.Response;
 
 import org.json.JSONArray;
 
-import com.google.gson.Gson;
-
 import br.com.loja.dao.CarrinhoDAO;
 import br.com.loja.modelo.Carrinho;
 import br.com.loja.modelo.Produto;
@@ -34,17 +32,15 @@ public class CarrinhoResource {
 	
 	@GET
 	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_XML)
 	public Carrinho busca(@PathParam("id") long id){
 		Carrinho carrinho = dao.busca(id);
 		return carrinho;
 	}
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response insereCarrinho(String conteudo){
-		Gson gson = new Gson();
-		Carrinho carrinho = gson.fromJson(conteudo, Carrinho.class);
+	@Consumes(MediaType.APPLICATION_XML)
+	public Response insereCarrinho(Carrinho carrinho){
 		dao.adiciona(carrinho);
 		URI uri = URI.create("carrinhos/" + carrinho.getId());
 		return Response.created(uri).build();
@@ -58,10 +54,9 @@ public class CarrinhoResource {
 	}
 	
 	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("{id}/produto/{idProduto}")
-	public Response atualizaProduto(@PathParam("id") long id, @PathParam("idProduto") long idProduto, String conteudo){
-		Produto produto = new Gson().fromJson(conteudo, Produto.class);
+	@Consumes(MediaType.APPLICATION_XML)
+	@Path("{id}")
+	public Response atualizaProduto(@PathParam("id") long id, Produto produto){
 		dao.busca(id).troca(produto);
 		return Response.ok().build();
 	}

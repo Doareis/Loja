@@ -20,15 +20,14 @@ public class TestaAdicaoCarrinho extends BaseServerTest{
 		carrinho.setCidade("São Paulo");
 		carrinho.setId(2L);
 		
-		Entity<String> entity = Entity.entity(carrinho.toJson(), MediaType.APPLICATION_JSON);
+		Entity<Carrinho> entity = Entity.entity(carrinho, MediaType.APPLICATION_XML);
 		Response resposta = target.path("/carrinhos").request().post(entity);
 		
 		// verifica o status da resposta
 		Assert.assertEquals(Response.Status.CREATED.getStatusCode(), resposta.getStatus());
 
 		String location = resposta.getHeaderString("Location");
-		String carrinhoInserido = client.target(location).request().get(String.class);
-		Carrinho carrinhoResposta = Carrinho.fromString(carrinhoInserido);
+		Carrinho carrinhoResposta = client.target(location).request().get(Carrinho.class);
 		
 		Assert.assertTrue(carrinhoResposta.getProdutos().isEmpty() == false);
 		Assert.assertTrue(carrinhoResposta.getProdutos().get(0).getNome().equals("Impressora multifuncional"));
